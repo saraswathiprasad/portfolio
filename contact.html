@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>CONTACT THE UNSEEN</h1>
+  <p class="sub-text">Send a message into the void...</p>
+  <div class="contact-form">
+    <h2>Contact Me... if you dare</h2>
+    <form id="contact-form">
+      <input id="name" type="text" name="name" placeholder="Your Name">
+      <input id="email" type="email" name="email" placeholder="Your Email">
+      <textarea id="message" name="message" placeholder="Your Spooky Message"></textarea>
+      <button type="submit">Send It Into the Shadows</button>
+    </form>
+  </div>
+
+  <div id="ghost-popup" class="hidden">
+    <img src="https://cdn.pixabay.com/photo/2016/04/01/00/03/ghost-1297982_1280.png" alt="Ghost">
+    <p>Fill this field!</p>
+  </div>
+
+  <a href="basic.html" class="btn">Run Back</a>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the form from submitting immediately
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      const ghostPopup = document.getElementById('ghost-popup');
+      const ghostImage = document.querySelector('#ghost-popup img');
+      const errorText = document.querySelector('#ghost-popup p');
+
+      // Check for missing fields
+      if (!name || !email || !message) {
+        ghostPopup.classList.remove('hidden'); // Show the ghost
+        errorText.textContent = 'Fill this field!'; // Message for the user
+
+        // Position the ghost next to the missing field
+        if (!name) {
+          ghostImage.style.left = '10%';
+        } else if (!email) {
+          ghostImage.style.left = '35%';
+        } else if (!message) {
+          ghostImage.style.left = '60%';
+        }
+        
+        setTimeout(() => {
+          ghostPopup.classList.add('hidden'); // Hide the ghost after 1.5s
+        }, 2000);
+      } else {
+        alert('Form submitted successfully!'); // Handle successful form submission
+      }
+    });
+  </script>
+</body>
+</html>

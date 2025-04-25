@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Mist effects -->
+  <div class="mist">
+    <div class="mist-layer"></div>
+    <div class="mist-layer"></div>
+    <div class="mist-layer"></div>
+  </div>
+
+  <div class="black-fog"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- Floating Ghost -->
+  <img class="ghost" src="https://cdn.pixabay.com/photo/2016/04/01/00/03/ghost-1297982_1280.png" alt="Ghost">
+
+  <h1>WELCOME</h1>
+  <p class="sub-text">To the dark side...</p>
+
+  <!-- Input & Greeting -->
+  <input id="name-input" type="text" placeholder="Enter your name...">
+  <button id="submit-btn">Reveal Yourself</button>
+  <div id="greeting"></div>
+
+  <!-- Portfolio -->
+  <div class="portfolio">
+    <a href="about.html" class="portfolio-item">
+      <img src="me.jpg" alt="MEEEEEE">
+      <h3>ABOUT ME ?</h3>
+      <p>DARE TO REVEAL ME ????</p>
+    </a>
+    <a href="projects.html" class="portfolio-item">
+      <img src="prj.jpg" alt="PROJECTSSS">
+      <h3>MY PROJECTS</h3>
+      <p>KNOW WHETHER U CAN GHOST ME</p>
+    </a>
+    <a href="contact.html" class="portfolio-item">
+      <img src="cc.jpg" alt="CONTACTTTTT">
+      <h3>MILNA HAI MUJSE......!!!!!!!!!?</h3>
+      <p>WANNA CATCH UP ????.</p>
+    </a>
+  </div>
+
+  <!-- Jump Scare -->
+  <div id="jumpScare" class="hidden">
+    <img src="ghost,jpg.jpg" alt="Scary Face" />
+    <audio id="screamSound" src="https://www.fesliyanstudios.com/play-mp3/4391" preload="auto"></audio>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/ROZKOL/Halloween/ROZKOL_-03-_Ghost_Story.mp3" loop></audio>
+
+  <script>
+    // Jump Scare
+    function showJumpScare() {
+      const scare = document.getElementById("jumpScare");
+      const scream = document.getElementById("screamSound");
+
+      scare.classList.remove("hidden");
+      scream.play();
+
+      setTimeout(() => {
+        scare.classList.add("hidden");
+        scream.pause();
+        scream.currentTime = 0;
+      }, 1500);
+    }
+
+    document.getElementById("submit-btn").addEventListener("click", showJumpScare);
+
+    // Music on click
+    document.body.addEventListener('click', () => {
+      const music = document.getElementById('bg-music');
+      if (music.paused) {
+        music.play().catch(e => console.log('Autoplay prevented:', e));
+      }
+    });
+
+    // Greeting directly (no ghost animation)
+    document.getElementById('submit-btn').addEventListener('click', function () {
+      const name = document.getElementById('name-input').value.trim();
+      const greet = document.getElementById('greeting');
+
+      if (name) {
+        setTimeout(() => {
+          greet.textContent = `Welcome, ${name}... we've been expecting you. Wanna have fun..!`;
+          greet.style.display = 'block';
+        }, 4000);
+      }
+    });
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.bottom = `-10px`;
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    window.addEventListener('load', createParticles);
+  </script>
+</body>
+</html>
